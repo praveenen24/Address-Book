@@ -2,21 +2,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddressBook {
-	List<Contact> contactList;
+	List<BuddyInfo> contactList;
 	
 	public AddressBook() {
-		contactList = new ArrayList<Contact>();
+		contactList = new ArrayList<BuddyInfo>();
 	}
 	
-	public void addContact(Contact c) {
+	public void addContact(BuddyInfo c) {
 		contactList.add(c);
 	}
 	
-	public void removeContact(Contact c) {
+	public void removeContact(BuddyInfo c) {
 		contactList.remove(c);
 	}
 	
-	public List<Contact> getContacts() {
+	public List<BuddyInfo> getContacts() {
 		return contactList;
 		
 	}

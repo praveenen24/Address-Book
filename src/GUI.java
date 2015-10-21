@@ -2,10 +2,10 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
-import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -22,6 +22,7 @@ public class GUI {
 	private static JMenuItem display;
 	private static JMenuItem addMenu;
 	private static JTextArea textArea;
+	private static JList<BuddyInfo> list;
 	private static JFrame frame;
 	
 	private static ActionListener createListener = new ActionListener() {
@@ -80,7 +81,7 @@ public class GUI {
 			int result = JOptionPane.showConfirmDialog(frame, panel, "Contact Info", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			if (result == 0) {
-				Contact newContact = new Contact(nameField.getText(),
+				BuddyInfo newContact = new BuddyInfo(nameField.getText(),
 						addressField.getText(), phoneField.getText());
 				addressBook.addContact(newContact);
 				textArea.append(newContact.toString());
