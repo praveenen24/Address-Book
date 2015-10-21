@@ -22,6 +22,18 @@ public class BuddyInfo {
 		return phone;
 	}
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void setAddress(String address) {
+		this.address = address;
+	}
+	
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		return this.equals(obj);
