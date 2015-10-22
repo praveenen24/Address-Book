@@ -62,14 +62,17 @@ public class GUI extends JFrame {
 			JPanel panel = new JPanel(new GridLayout(0,1));
 			
 			JTextField textNameField = new JTextField();
-			panel.add(new JLabel("Text File Name"));
+			panel.add(new JLabel("Text File Name"));	
 			panel.add(textNameField);
 			int result = JOptionPane.showConfirmDialog(frame, panel, "Txt Name?", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			if (result == 0) {
 				try {
 					FileWriter fw = new FileWriter(textNameField.getText() + ".txt");
-					textArea.write(fw);
+					for (int i = 0; i < listModel.size(); i++) {
+						fw.write(listModel.getElementAt(i).toString());
+					}
+					fw.close();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
