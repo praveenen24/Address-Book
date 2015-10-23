@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.util.List;
 
@@ -21,6 +22,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+/**
+ * GUI Portion of the AddressBook
+ */
+@SuppressWarnings("serial")
 public class GUI extends JFrame {
 	private static AddressBook addressBook;
 	private static JMenu contactMenu;
@@ -28,7 +33,6 @@ public class GUI extends JFrame {
 	private static JMenuItem save;
 	private static JMenuItem display;
 	private static JMenuItem addMenu;
-	private static JTextArea textArea;
 	private static JList<BuddyInfo> list;
 	private static JPanel listPanel;
 	private static JPanel buttonPanel;
@@ -94,13 +98,12 @@ public class GUI extends JFrame {
 			panel.add(new JLabel("Phone"));
 			panel.add(phoneField);
 			int result = JOptionPane.showConfirmDialog(frame, panel, "Contact Info", JOptionPane.OK_CANCEL_OPTION,
-					JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.QUESTION_MESSAGE);
 			if (result == 0) {
 				BuddyInfo newContact = new BuddyInfo(nameField.getText(),
 						addressField.getText(), phoneField.getText());
 				addressBook.addContact(newContact);
 				listModel.addElement(newContact);
-				textArea.append(newContact.toString());
 			}
 		}
 	};
@@ -108,7 +111,12 @@ public class GUI extends JFrame {
 	private static ActionListener deleteListener = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			listModel.remove(list.getSelectedIndex());
+			if (list.getSelectedIndex() != -1) {
+				addressBook.removeContact(list.getSelectedValue());
+				listModel.remove(list.getSelectedIndex());
+			} else {
+				JOptionPane.showMessageDialog(frame, "No Contact is Selected");
+			}
 		}
 	};
 	
@@ -117,9 +125,9 @@ public class GUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			if (list.getSelectedIndex() != -1) {
 				JPanel panel = new JPanel(new GridLayout(0,1));
-				JTextField nameField = new JTextField();
-				JTextField addressField = new JTextField();
-				JTextField phoneField = new JTextField();
+				JTextField nameField = new JTextField(list.getSelectedValue().getName());
+				JTextField addressField = new JTextField(list.getSelectedValue().getAddress());
+				JTextField phoneField = new JTextField(list.getSelectedValue().getPhone());
 				panel.add(new JLabel("Name"));
 				panel.add(nameField);
 				panel.add(new JLabel("Address"));
@@ -127,17 +135,12 @@ public class GUI extends JFrame {
 				panel.add(new JLabel("Phone"));
 				panel.add(phoneField);
 				int result = JOptionPane.showConfirmDialog(frame, panel, "Contact Info", JOptionPane.OK_CANCEL_OPTION,
-						JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.QUESTION_MESSAGE);
 				if (result == 0) {
-					if (nameField.getText() != "") {
-						list.getSelectedValue().setName(nameField.getText());
-					}
-					if (addressField.getText() != "") {
-						list.getSelectedValue().setAddress(addressField.getText());
-					}
-					if (phoneField.getText() != "") {
-						list.getSelectedValue().setPhone(phoneField.getText());
-					}
+					list.getSelectedValue().setName(nameField.getText());
+					list.getSelectedValue().setAddress(addressField.getText());
+					list.getSelectedValue().setPhone(phoneField.getText());
+					list.repaint();
 				}
 			} else {
 				JOptionPane.showMessageDialog(frame, "No Contact was Selected");
@@ -147,8 +150,8 @@ public class GUI extends JFrame {
 	
 	public static void setMenu() {
 		JMenuBar menu = new JMenuBar();	
+		
 		// Address Menu
-
 		JMenu addressBookMenu = new JMenu("Address Book");
 		create = new JMenuItem("Create");
 		save = new JMenuItem("Save");
@@ -164,7 +167,7 @@ public class GUI extends JFrame {
 		menu.add(addressBookMenu);  
 
 		// Contact Menu
-		contactMenu = new JMenu("Contact");
+		contactMenu = new JMenu("BuddyInfo");
 		contactMenu.setVisible(false);
 		addMenu = new JMenuItem("Add");
 		addMenu.addActionListener(addListener);
@@ -179,13 +182,10 @@ public class GUI extends JFrame {
 	public static void main(String[] args) {
 		frame = new JFrame("Address Book");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		textArea = new JTextArea("Address Book\n\n");
-		textArea.setVisible(false);
 		list = new JList<BuddyInfo>(listModel);
 		list.setPreferredSize(new Dimension(200, 200));
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		frame.setSize(500, 500);
-		
 		frame.setLayout(new GridLayout(0,1));
 		
 		// List of Contacts
@@ -194,6 +194,7 @@ public class GUI extends JFrame {
 		JScrollPane scrollPane = new JScrollPane(list);
 		scrollPane.setPreferredSize(new Dimension(500, 250));
 		listPanel.add(scrollPane);
+		listPanel.setVisible(false);
 		
 		//Buttons
 		buttonPanel = new JPanel();
@@ -204,12 +205,12 @@ public class GUI extends JFrame {
 		edit.addActionListener(editListener);
 		buttonPanel.add(delete);
 		buttonPanel.add(edit);
-		
-		listPanel.setVisible(false);
 		buttonPanel.setVisible(false);
+		
+		setMenu();
+		
 		frame.add(listPanel);
 		frame.add(buttonPanel);
 		frame.pack();
-		setMenu();
 	}
 }

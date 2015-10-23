@@ -1,8 +1,12 @@
-
+/**
+ * This is used to create BuddyInfos for the addressBook
+ * @author praveenensrikumaran
+ *
+ */
 public class BuddyInfo {
-	String name;
-	String address;
-	String phone;
+	private String name;
+	private String address;
+	private String phone;
 	
 	public BuddyInfo(String name, String address, String phone) {
 		this.name = name;
@@ -32,11 +36,6 @@ public class BuddyInfo {
 	
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		return this.equals(obj);
 	}
 	
 	@Override
