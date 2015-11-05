@@ -20,6 +20,14 @@ public class AddressBook {
 		return contactList.contains(buddy);
 	}
 	
+	public int size() {
+		return contactList.size();
+	}
+	
+	public void clear() {
+		contactList.clear();
+	}
+	
 	public List<BuddyInfo> getContacts() {
 		return contactList;
 		

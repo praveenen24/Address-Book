@@ -16,6 +16,13 @@ public class BuddyInfo {
 		age = 0;
 	}
 	
+	public BuddyInfo(BuddyInfo buddy) {
+		this.name = buddy.name;
+		this.address = buddy.address;
+		this.phone = buddy.phone;
+		this.age = buddy.age;
+	}
+	
 	public String getName() {
 		return  name;
 	}
@@ -46,6 +53,15 @@ public class BuddyInfo {
 	
 	public void setAge(int age) {
 		this.age = age;
+	}
+	
+	public boolean isOver18() {
+		if (age > 18) return true;
+		return false;
+	}
+	
+	public String getGreeting() {
+		return "Hello " + name + " welcome to the address book";
 	}
 	
 	@Override
