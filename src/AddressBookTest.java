@@ -1,5 +1,3 @@
-
-
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -14,7 +12,6 @@ public class AddressBookTest {
 	public void setUp() throws Exception {
 		addressBook = new AddressBook();
 		buddy = new BuddyInfo("Name", "Address", "Phone", 20);
-		addressBook.addContact(buddy);
 	}
 
 	@After
@@ -23,12 +20,32 @@ public class AddressBookTest {
 
 	@Test
 	public void testAddContact() {
+		addressBook.addContact(buddy);
 		assertTrue(addressBook.contains(buddy));
 	}
 
 	@Test
 	public void testRemoveContact() {
+		addressBook.addContact(buddy);
+		assertTrue(addressBook.contains(buddy));
 		addressBook.removeContact(buddy);
-		assertTrue(!addressBook.contains(buddy));
+		assertFalse(addressBook.contains(buddy));
 	}
+	
+	@Test
+	public void testSize() {
+		addressBook.addContact(new BuddyInfo("","","",0));
+		assertEquals(1, addressBook.size());
+		addressBook.addContact(new BuddyInfo("","","",0));
+		addressBook.addContact(new BuddyInfo("","","",0));
+		addressBook.addContact(new BuddyInfo("","","",0));
+		assertEquals(4, addressBook.size());
+	}
+	
+	@Test
+	public void testClear() {
+		addressBook.clear();
+		assertTrue(addressBook.size() == 0);
+	}	
+	
 }
