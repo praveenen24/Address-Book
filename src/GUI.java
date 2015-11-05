@@ -2,9 +2,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.FileWriter;
-import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -18,15 +16,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 /**
  * GUI Portion of the AddressBook
  */
-@SuppressWarnings("serial")
-public class GUI extends JFrame {
+public class GUI {
 	private static AddressBook addressBook;
 	private static JMenu contactMenu;
 	private static JMenuItem create;
@@ -38,7 +34,6 @@ public class GUI extends JFrame {
 	private static JPanel buttonPanel;
 	private static JFrame frame;
 	private static DefaultListModel<BuddyInfo> listModel = new DefaultListModel<>();
-	
 	
 	private static ActionListener createListener = new ActionListener() {
 		@Override
