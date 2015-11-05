@@ -1,4 +1,4 @@
-package TestCases;
+
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AddressBookTest {
-
+	private AddressBook addressBook = null;
+	private BuddyInfo buddy = null;
+	
 	@Before
 	public void setUp() throws Exception {
+		addressBook = new AddressBook();
+		buddy = new BuddyInfo("Name", "Address", "Phone");
+		addressBook.addContact(buddy);
 	}
 
 	@After
@@ -18,12 +23,13 @@ public class AddressBookTest {
 
 	@Test
 	public void testAddContact() {
-		fail("Not yet implemented");
+		assertTrue(addressBook.contains(buddy));
 	}
 
 	@Test
 	public void testRemoveContact() {
-		fail("Not yet implemented");
+		addressBook.removeContact(buddy);
+		assertTrue(!addressBook.contains(buddy));
 	}
 
 }

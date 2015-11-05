@@ -8,12 +8,16 @@ public class AddressBook {
 		contactList = new ArrayList<BuddyInfo>();
 	}
 	
-	public void addContact(BuddyInfo c) {
-		contactList.add(c);
+	public void addContact(BuddyInfo buddy) {
+		contactList.add(buddy);
 	}
 	
-	public void removeContact(BuddyInfo c) {
-		contactList.remove(c);
+	public void removeContact(BuddyInfo buddy) {
+		contactList.remove(buddy);
+	}
+	
+	public boolean contains(BuddyInfo buddy) {
+		return contactList.contains(buddy);
 	}
 	
 	public List<BuddyInfo> getContacts() {
