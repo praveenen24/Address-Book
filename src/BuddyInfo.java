@@ -9,11 +9,11 @@ public class BuddyInfo {
 	private String phone;
 	private int age;
 	
-	public BuddyInfo(String name, String address, String phone) {
+	public BuddyInfo(String name, String address, String phone, int age) {
 		this.name = name;
 		this.address = address;
 		this.phone = phone;
-		age = 0;
+		this.age = age;
 	}
 	
 	public BuddyInfo(BuddyInfo buddy) {
@@ -61,7 +61,7 @@ public class BuddyInfo {
 	}
 	
 	public String getGreeting() {
-		return "Hello " + name + " welcome to the address book";
+		return "Welcome " + name + " you have been created";
 	}
 	
 	@Override

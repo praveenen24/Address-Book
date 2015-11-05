@@ -13,7 +13,7 @@ public class AddressBookTest {
 	@Before
 	public void setUp() throws Exception {
 		addressBook = new AddressBook();
-		buddy = new BuddyInfo("Name", "Address", "Phone");
+		buddy = new BuddyInfo("Name", "Address", "Phone", 20);
 		addressBook.addContact(buddy);
 	}
 
@@ -31,5 +31,4 @@ public class AddressBookTest {
 		addressBook.removeContact(buddy);
 		assertTrue(!addressBook.contains(buddy));
 	}
-
 }

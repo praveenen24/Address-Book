@@ -86,17 +86,20 @@ public class GUI {
 			JTextField nameField = new JTextField();
 			JTextField addressField = new JTextField();
 			JTextField phoneField = new JTextField();
+			JTextField ageField = new JTextField();
 			panel.add(new JLabel("Name"));
 			panel.add(nameField);
 			panel.add(new JLabel("Address"));
 			panel.add(addressField);
 			panel.add(new JLabel("Phone"));
 			panel.add(phoneField);
+			panel.add(new JLabel("Age"));
+			panel.add(ageField);
 			int result = JOptionPane.showConfirmDialog(frame, panel, "Contact Info", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (result == 0) {
 				BuddyInfo newContact = new BuddyInfo(nameField.getText(),
-						addressField.getText(), phoneField.getText());
+						addressField.getText(), phoneField.getText(), Integer.parseInt(ageField.getText()));
 				addressBook.addContact(newContact);
 				listModel.addElement(newContact);
 			}

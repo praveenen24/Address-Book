@@ -30,6 +30,5 @@ public class AddressBook {
 	
 	public List<BuddyInfo> getContacts() {
 		return contactList;
-		
 	}
 }
