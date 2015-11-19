@@ -2,11 +2,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileWriter;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
@@ -59,21 +59,30 @@ public class GUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JPanel panel = new JPanel(new GridLayout(0,1));
-			
+			BuddyInfo buddy = BuddyInfo.importBuddy("Praveenen!4165666885!wquiwijei!12");
 			JTextField textNameField = new JTextField();
 			panel.add(new JLabel("Text File Name"));	
 			panel.add(textNameField);
 			int result = JOptionPane.showConfirmDialog(frame, panel, "Txt Name?", JOptionPane.OK_CANCEL_OPTION,
 					JOptionPane.INFORMATION_MESSAGE);
 			if (result == 0) {
-				try {
-					FileWriter fw = new FileWriter(textNameField.getText() + ".txt");
-					for (int i = 0; i < listModel.size(); i++) {
-						fw.write(listModel.getElementAt(i).toString());
-					}
-					fw.close();
-				} catch (Exception ex) {
-					ex.printStackTrace();
+				String name = textNameField.getText() + ".txt";
+				addressBook.export(name);
+			}
+		}
+	};
+	
+	private static ActionListener importListener = new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser choose = new JFileChooser();
+			int result = choose.showOpenDialog(frame);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				AddressBook newAddressBook = AddressBook.importAddressBook(choose.getSelectedFile());
+				addressBook = newAddressBook;
+				listModel.clear();
+				for (BuddyInfo info : addressBook.getContacts()) {
+					listModel.addElement(info);
 				}
 			}
 		}
@@ -154,12 +163,15 @@ public class GUI {
 		create = new JMenuItem("Create");
 		save = new JMenuItem("Save");
 		display = new JMenuItem("Display");
+		JMenuItem importMenu = new JMenuItem("Import");
 		addressBookMenu.add(create);
 		create.addActionListener(createListener);
 		addressBookMenu.add(save);
 		save.addActionListener(saveListener);
 		addressBookMenu.add(display);
 		display.addActionListener(displayListener);
+		addressBookMenu.add(importMenu);
+		importMenu.addActionListener(importListener);
 		save.setVisible(false);
 		display.setVisible(false);
 		menu.add(addressBookMenu);  

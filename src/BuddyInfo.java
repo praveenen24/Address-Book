@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * This is used to create BuddyInfos for the addressBook
  * @author praveenensrikumaran
@@ -59,6 +61,11 @@ public class BuddyInfo {
 		if (age > 18) return true;
 		return false;
 	}
+	
+	public static BuddyInfo importBuddy(String s) {
+		Scanner sc = new Scanner(s).useDelimiter("!");
+		return new BuddyInfo(sc.next(), sc.next(), sc.next(), sc.nextInt());
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -78,6 +85,6 @@ public class BuddyInfo {
 
 	@Override
 	public String toString() {
-		return "Name: " + name + "	|	Address: " + address + "	|	Phone: " + phone + "\n";
+		return name + "!" + address + "!" + phone + "!" + age;
 	}
 }
