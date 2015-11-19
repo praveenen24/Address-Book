@@ -62,9 +62,12 @@ public class BuddyInfo {
 		return false;
 	}
 	
+	@SuppressWarnings("resource")
 	public static BuddyInfo importBuddy(String s) {
 		Scanner sc = new Scanner(s).useDelimiter("!");
-		return new BuddyInfo(sc.next(), sc.next(), sc.next(), sc.nextInt());
+		BuddyInfo newBuddy = new BuddyInfo(sc.next(), sc.next(), sc.next(), sc.nextInt());
+		sc.close();
+		return newBuddy;
 	}
 
 	@Override

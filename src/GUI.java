@@ -59,7 +59,6 @@ public class GUI {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			JPanel panel = new JPanel(new GridLayout(0,1));
-			BuddyInfo buddy = BuddyInfo.importBuddy("Praveenen!4165666885!wquiwijei!12");
 			JTextField textNameField = new JTextField();
 			panel.add(new JLabel("Text File Name"));	
 			panel.add(textNameField);
@@ -85,6 +84,10 @@ public class GUI {
 					listModel.addElement(info);
 				}
 			}
+			contactMenu.setVisible(true);
+			save.setVisible(true);
+			display.setVisible(true);
+			addMenu.setVisible(true);
 		}
 	};
 	

@@ -46,6 +46,7 @@ public class AddressBook {
 		}
 	}
 	
+	@SuppressWarnings("resource")
 	public static AddressBook importAddressBook(File file) {
 		AddressBook importedAddressBook = new AddressBook();
 		try {
