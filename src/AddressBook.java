@@ -72,6 +72,7 @@ public class AddressBook implements Serializable {
 			FileOutputStream f = new FileOutputStream(file);
 			ObjectOutputStream out = new ObjectOutputStream(f);
 			out.writeObject(this);
+			out.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -85,6 +86,7 @@ public class AddressBook implements Serializable {
 			FileInputStream f = new FileInputStream(file);
 			ObjectInputStream in = new ObjectInputStream(f);
 			newBook = (AddressBook) in.readObject();
+			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -94,13 +96,7 @@ public class AddressBook implements Serializable {
 	@Override
 	public boolean equals(Object o) {
 		AddressBook newBook = (AddressBook) o;
-		for (BuddyInfo buddy1 : getContacts()) {
-			for (BuddyInfo buddy2 : newBook.getContacts()) {
-				if (!buddy1.equals(buddy2)) return false;
-			}
-		}
-		return true;
-		
+		return getContacts().equals(newBook.getContacts());		
 	}
 	
 	public List<BuddyInfo> getContacts() {
