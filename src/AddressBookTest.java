@@ -1,4 +1,8 @@
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 
 import org.junit.After;
 import org.junit.Before;
@@ -48,4 +52,19 @@ public class AddressBookTest {
 		assertTrue(addressBook.size() == 0);
 	}	
 	
+	@Test
+	public void testExport() {
+		addressBook.addContact(buddy);
+		addressBook.export("Export.txt");
+		AddressBook newBook = AddressBook.importAddressBook(new File("Export.txt"));
+		assertEquals(newBook, addressBook);
+	}
+	
+	@Test
+	public void testReadAndWrite() {
+		addressBook.addContact(buddy);
+		addressBook.writeAddressBook("Write.txt");
+		AddressBook newBook = AddressBook.readAddressBook(new File("Write.txt"));
+		assertEquals(newBook, addressBook);
+	}
 }

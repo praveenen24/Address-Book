@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
@@ -5,7 +6,8 @@ import java.util.Scanner;
  * @author praveenensrikumaran
  *
  */
-public class BuddyInfo {
+@SuppressWarnings("serial")
+public class BuddyInfo implements Serializable {
 	private String name;
 	private String address;
 	private String phone;

@@ -1,12 +1,18 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressBook {
+@SuppressWarnings("serial")
+public class AddressBook implements Serializable {
 	List<BuddyInfo> contactList;
 	
 	public AddressBook() {
@@ -59,6 +65,42 @@ public class AddressBook {
 			e.printStackTrace();
 		}
 		return importedAddressBook;
+	}
+	
+	public void writeAddressBook(String file) {
+		try {
+			FileOutputStream f = new FileOutputStream(file);
+			ObjectOutputStream out = new ObjectOutputStream(f);
+			out.writeObject(this);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static AddressBook readAddressBook(File file) {
+		AddressBook newBook = new AddressBook();
+		try {
+			FileInputStream f = new FileInputStream(file);
+			ObjectInputStream in = new ObjectInputStream(f);
+			newBook = (AddressBook) in.readObject();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newBook;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		AddressBook newBook = (AddressBook) o;
+		for (BuddyInfo buddy1 : getContacts()) {
+			for (BuddyInfo buddy2 : newBook.getContacts()) {
+				if (!buddy1.equals(buddy2)) return false;
+			}
+		}
+		return true;
+		
 	}
 	
 	public List<BuddyInfo> getContacts() {
