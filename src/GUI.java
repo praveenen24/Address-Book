@@ -2,6 +2,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -192,7 +193,7 @@ public class GUI {
 	}
 	
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		frame = new JFrame("Address Book");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		list = new JList<BuddyInfo>(listModel);
@@ -225,5 +226,12 @@ public class GUI {
 		frame.add(listPanel);
 		frame.add(buttonPanel);
 		frame.pack();
+		
+		AddressBook a = new AddressBook();
+		a.addContact(new BuddyInfo("Praveenen", "test", "test", 12));
+		a.exportToXML(new File("file.xml"));
+		//a.importFromXMLDOM(new File("file.xml"));
+		a.importFromXMLFileSax(new File("file.xml"));
+
 	}
 }

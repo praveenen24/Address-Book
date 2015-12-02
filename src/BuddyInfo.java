@@ -92,4 +92,11 @@ public class BuddyInfo implements Serializable {
 	public String toString() {
 		return name + "!" + address + "!" + phone + "!" + age;
 	}
+	
+	public String toXMLString() {
+		return "<name>" + this.name + "</name>" 
+			+ "<address>" + this.address + "</address>"
+			+ "<phone>" + this.phone + "</phone>"
+			+ "<age>" + this.age + "</age>";
+	}
 }

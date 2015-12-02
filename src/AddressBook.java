@@ -93,6 +93,24 @@ public class AddressBook implements Serializable {
 		return newBook;
 	}
 	
+	public void exportToXML(File file) {
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter(file));
+			writer.write(toXML());
+			writer.close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void importFromXMLFileSax(File f) throws Exception {
+		XMLSax.readSAX(f);
+	}
+	
+	public void importFromXMLDOM(File f) throws Exception {
+		XMLSax.readDom(f);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		AddressBook newBook = (AddressBook) o;
@@ -101,5 +119,15 @@ public class AddressBook implements Serializable {
 	
 	public List<BuddyInfo> getContacts() {
 		return contactList;
+	}
+	
+	public String toXML() {
+		StringBuilder b = new StringBuilder();
+		b.append("<addressbook>");
+		for (BuddyInfo buddy : contactList) {
+			b.append(buddy.toXMLString());
+		}
+		b.append("</addressbook>");
+		return b.toString();
 	}
 }
