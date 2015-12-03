@@ -103,7 +103,7 @@ public class BuddyInfo implements Serializable {
 			+ "<age>" + this.age + "</age>";
 	}
 
-	public static BuddyInfo create(Element element) {
+	public static BuddyInfo importBuddyFromXML(Element element) {
 		BuddyInfo importedBuddy = new BuddyInfo("","","",0);
 		
 		NodeList nodeList;

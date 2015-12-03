@@ -1,6 +1,6 @@
 import java.io.File;
 
-public class XMLSAXRUN {
+public class XMLRUN {
 
 	public static void main(String[] args) {
 		
@@ -10,7 +10,7 @@ public class XMLSAXRUN {
 			a.addContact(new BuddyInfo("Praveenen", "test", "test", 12));
 			a.addContact(new BuddyInfo("Testing", "test2", "test2", 24));
 			a.exportToXML(f);
-			XML.readDom(f);
+			//XML.readDom(f);
 			XML.readSAX(f);
 			AddressBook newBook = AddressBook.importFromXML(f);
 			System.out.println(a.equals(newBook));

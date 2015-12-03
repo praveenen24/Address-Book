@@ -114,7 +114,7 @@ public class AddressBook implements Serializable {
 		NodeList list = doc.getElementsByTagName("buddyinfo");
 		AddressBook newBook = new AddressBook();
 		for(int i = 0; i < list.getLength(); i++){
-			newBook.addContact(BuddyInfo.create((Element)list.item(i)));
+			newBook.addContact(BuddyInfo.importBuddyFromXML((Element)list.item(i)));
 		}
 		return newBook;
 	}
