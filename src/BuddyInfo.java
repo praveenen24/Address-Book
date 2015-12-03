@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.Scanner;
 
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 /**
  * This is used to create BuddyInfos for the addressBook
  * @author praveenensrikumaran
@@ -98,5 +101,32 @@ public class BuddyInfo implements Serializable {
 			+ "<address>" + this.address + "</address>"
 			+ "<phone>" + this.phone + "</phone>"
 			+ "<age>" + this.age + "</age>";
+	}
+
+	public static BuddyInfo create(Element element) {
+		BuddyInfo importedBuddy = new BuddyInfo("","","",0);
+		
+		NodeList nodeList;
+		nodeList = element.getElementsByTagName("address");
+		if(nodeList.getLength() > 0){
+			importedBuddy.setAddress(nodeList.item(0).getTextContent());
+		}
+		
+		nodeList = element.getElementsByTagName("phone");
+		if(nodeList.getLength() > 0){
+			importedBuddy.setPhone(nodeList.item(0).getTextContent());
+		}
+		
+		nodeList = element.getElementsByTagName("name");
+		if(nodeList.getLength() > 0){
+			importedBuddy.setName(nodeList.item(0).getTextContent());
+		}
+		
+		nodeList = element.getElementsByTagName("age");
+		if(nodeList.getLength() > 0){
+			importedBuddy.setAge(Integer.parseInt(nodeList.item(0).getTextContent()));
+		}
+		
+		return importedBuddy;
 	}
 }

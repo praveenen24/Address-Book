@@ -11,6 +11,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
 @SuppressWarnings("serial")
 public class AddressBook implements Serializable {
 	List<BuddyInfo> contactList;
@@ -103,12 +109,14 @@ public class AddressBook implements Serializable {
 		}
 	}
 	
-	public void importFromXMLFileSax(File f) throws Exception {
-		XMLSax.readSAX(f);
-	}
-	
-	public void importFromXMLDOM(File f) throws Exception {
-		XMLSax.readDom(f);
+	public static AddressBook importFromXML(File f) throws Exception {
+		Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(f);
+		NodeList list = doc.getElementsByTagName("buddyinfo");
+		AddressBook newBook = new AddressBook();
+		for(int i = 0; i < list.getLength(); i++){
+			newBook.addContact(BuddyInfo.create((Element)list.item(i)));
+		}
+		return newBook;
 	}
 	
 	@Override
@@ -125,7 +133,9 @@ public class AddressBook implements Serializable {
 		StringBuilder b = new StringBuilder();
 		b.append("<addressbook>");
 		for (BuddyInfo buddy : contactList) {
+			b.append("<buddyinfo>");
 			b.append(buddy.toXMLString());
+			b.append("</buddyinfo>");
 		}
 		b.append("</addressbook>");
 		return b.toString();

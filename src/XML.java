@@ -12,7 +12,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 
 
-public class XMLSax {
+public class XML {
 	
 	public static void readSAX(File f) throws Exception {
 		SAXParserFactory spf = SAXParserFactory.newInstance();
